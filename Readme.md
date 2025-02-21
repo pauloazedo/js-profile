@@ -33,7 +33,7 @@ This is a **learning project** aimed at enhancing JavaScript skills while experi
    ```
 
 4. **Environment Variables**:
-   - Rename `.env.example` to `.env` and configure necessary settings.
+   - Edit `.env` and configure necessary settings to your MongoDB database..
 
 ## 🐳 Docker Setup (Upcoming)
 To run the application inside a Docker container:
