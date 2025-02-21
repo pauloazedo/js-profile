@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Profile</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Create Profile</h1>
+    </header>
+
+    <form action="/create" method="POST" enctype="multipart/form-data">
+      <label for="name">Name:</label>
+      <input type="text" name="name" required><br>
+
+      <label for="email">Email:</label>
+      <input type="email" name="email" required><br>
+
+      <label for="interests">Interests:</label>
+      <textarea name="interests" required></textarea><br>
+
+      <label for="profilePicture">Profile Picture:</label>
+      <input type="file" name="profilePicture"><br>
+
+      <button type="submit">Create Profile</button>
+    </form>
+
+    <a href="/">Go back to Profile List</a>
+  </div>
+</body>
+</html>

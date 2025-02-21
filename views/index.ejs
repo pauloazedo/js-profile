@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Profiles</title>
+  <link rel="stylesheet" href="/style.css">
+  <script>
+    // Function to select/unselect all checkboxes
+    function toggleSelectAll(source) {
+      const checkboxes = document.querySelectorAll('.profile-checkbox');
+      checkboxes.forEach(checkbox => checkbox.checked = source.checked);
+      toggleBulkDeleteButton(); // Ensure delete button visibility updates
+    }
+
+    // Function to confirm and delete selected profiles
+    function bulkDelete() {
+      const selectedProfiles = Array.from(document.querySelectorAll('.profile-checkbox:checked'))
+                                    .map(checkbox => checkbox.value);
+
+      if (selectedProfiles.length === 0) {
+        alert("Please select at least one profile to delete.");
+        return;
+      }
+
+      if (confirm(`Are you sure you want to delete ${selectedProfiles.length} profile(s)? This action cannot be undone.`)) {
+        fetch('/bulk-delete', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ profileIds: selectedProfiles })
+        }).then(response => {
+          if (response.ok) {
+            window.location.reload();
+          } else {
+            alert("Error deleting profiles.");
+          }
+        });
+      }
+    }
+
+    // Show or hide delete button based on selection
+    function toggleBulkDeleteButton() {
+      const selectedProfiles = document.querySelectorAll('.profile-checkbox:checked').length;
+      const bulkDeleteButton = document.getElementById('bulk-delete-btn');
+      bulkDeleteButton.style.display = selectedProfiles > 0 ? 'flex' : 'none';
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>User Profiles</h1>
+    </header>
+
+    <div class="profile-table">
+      <div class="profile-table-header">
+        <div class="profile-table-cell">
+          <input type="checkbox" id="select-all" onclick="toggleSelectAll(this)">
+        </div>
+        <div class="profile-table-cell"><strong>Name</strong></div>
+        <div class="profile-table-cell"><strong>Email</strong></div>
+        <div class="profile-table-cell"><strong>Interests</strong></div>
+        <div class="profile-table-cell"><strong>Actions</strong></div>
+      </div>
+
+      <% profiles.forEach(profile => { %>
+        <div class="profile-table-row">
+          <!-- Checkbox for bulk delete -->
+          <div class="profile-table-cell select-column">
+            <input type="checkbox" class="profile-checkbox" value="<%= profile._id %>" onclick="toggleBulkDeleteButton()">
+          </div>
+
+          <!-- Profile Picture and Name -->
+          <div class="profile-table-cell profile-name">
+            <% if (profile.profilePicture && profile.profilePicture !== "default.png") { %>
+              <img src="/images/<%= profile.profilePicture %>" 
+                   alt="Profile Picture" 
+                   class="profile-thumbnail"
+                   onerror="this.onerror=null; this.src='/images/default.png';">
+            <% } else { %>
+              <img src="/images/default.png" alt="Default Profile Picture" class="profile-thumbnail">
+            <% } %>
+            <span><%= profile.name %></span>
+          </div>
+
+          <!-- Email -->
+          <div class="profile-table-cell profile-email"><%= profile.email %></div>
+
+          <!-- Interests -->
+          <div class="profile-table-cell profile-interests">
+            <% if (Array.isArray(profile.interests)) { %>
+              <%= profile.interests.join(", ") %>
+            <% } else { %>
+              <%= profile.interests %>
+            <% } %>
+          </div>
+
+          <!-- Edit & Delete Buttons with Tooltips -->
+          <div class="profile-table-cell">
+            <a href="/edit/<%= profile._id %>" class="edit-link" title="Edit Profile">✏️</a>
+            <button onclick="confirmDelete('<%= profile._id %>')" class="delete-btn" title="Delete Profile">❌</button>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+
+    <!-- Bulk Delete Button (Aligned Under Checkboxes) -->
+    <div class="bulk-delete-container">
+      <button id="bulk-delete-btn" onclick="bulkDelete()" class="bulk-delete-btn" style="display: none;" title="Delete Selected Profiles">❌ Delete Selected</button>
+    </div>
+
+    <!-- Create Profile Button at the Bottom -->
+    <div class="create-profile-container">
+      <a href="/create" class="create-profile-btn">Create New Profile</a>
+    </div>
+  </div>
+</body>
+</html>
