@@ -6,8 +6,7 @@ const Profile = require('./models/Profile'); // Adjust the path if needed
 // MongoDB Connection
 const mongoURI = process.env.MONGO_URI;
 
-mongoose
-  .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('✅ Connected to MongoDB'))
   .catch((err) => {
     console.error('❌ MongoDB Connection Error:', err);
@@ -24,22 +23,15 @@ const generateFakeProfiles = (count) => {
   }));
 };
 
-// Seed Database
+// Seed Database Function (Now Exported)
 const seedDatabase = async () => {
   try {
     const fakeProfiles = generateFakeProfiles(50);
-
-    // Insert New Profiles Without Removing Existing Ones
     await Profile.insertMany(fakeProfiles);
     console.log('✅ Successfully inserted 50 fake users');
-
-    mongoose.connection.close(); // Close connection after insertion
-    console.log('🔌 Disconnected from MongoDB');
   } catch (error) {
     console.error('❌ Error inserting users:', error);
-    mongoose.connection.close();
   }
 };
 
-// Execute the seeding function
-seedDatabase();
+module.exports = { seedDatabase };

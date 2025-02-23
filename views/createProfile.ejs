@@ -2,32 +2,67 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Create Profile</title>
+  <title>User Profiles</title>
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+  <!-- Theme Switch -->
+  <div class="theme-switch-wrapper">
+    <span class="sun-icon">☀️</span>
+    <label class="theme-switch" for="theme-toggle">
+      <input type="checkbox" id="theme-toggle">
+      <span class="slider"></span>
+    </label>
+    <span class="moon-icon">🌙</span>
+  </div>
+
   <div class="container">
     <header>
-      <h1>Create Profile</h1>
+      <h1>User Profiles</h1>
     </header>
 
-    <form action="/create" method="POST" enctype="multipart/form-data">
-      <label for="name">Name:</label>
-      <input type="text" name="name" required><br>
+    <div class="profile-form-container">
+      <h2>Create New Profile</h2>
+      <form action="/create" method="POST" enctype="multipart/form-data">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
 
-      <label for="email">Email:</label>
-      <input type="email" name="email" required><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
 
-      <label for="interests">Interests:</label>
-      <textarea name="interests" required></textarea><br>
+        <label for="interests">Interests (comma-separated):</label>
+        <input type="text" id="interests" name="interests">
 
-      <label for="profilePicture">Profile Picture:</label>
-      <input type="file" name="profilePicture"><br>
+        <label for="profilePicture">Profile Picture:</label>
+        <input type="file" id="profilePicture" name="profilePicture" accept="image/*">
 
-      <button type="submit">Create Profile</button>
-    </form>
-
-    <a href="/">Go back to Profile List</a>
+        <div class="create-profile-container">
+          <button type="submit" class="create-profile-btn">Create</button>
+          <button type="button" class="add-users-btn cancel-btn" onclick="window.location='/'">Cancel</button>
+        </div>
+      </form>
+    </div>
   </div>
+
+  <script>
+    // Dark mode logic
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('change', () => {
+      if (themeToggle.checked) {
+        document.body.classList.add('dark-mode');
+      } else {
+        document.body.classList.remove('dark-mode');
+      }
+      localStorage.setItem('theme', themeToggle.checked ? 'dark' : 'light');
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeToggle.checked = true;
+      }
+    });
+  </script>
 </body>
 </html>

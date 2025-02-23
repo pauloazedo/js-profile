@@ -4,49 +4,72 @@
   <meta charset="UTF-8">
   <title>Edit Profile</title>
   <link rel="stylesheet" href="/style.css">
-  <script>
-    function confirmDelete(id) {
-      if (confirm("Are you sure you want to delete this profile? This action cannot be undone.")) {
-        window.location.href = "/delete/" + id;
-      }
-    }
-  </script>
 </head>
 <body>
+  <!-- Theme Switch -->
+  <div class="theme-switch-wrapper">
+    <span class="sun-icon">☀️</span>
+    <label class="theme-switch" for="theme-toggle">
+      <input type="checkbox" id="theme-toggle">
+      <span class="slider"></span>
+    </label>
+    <span class="moon-icon">🌙</span>
+  </div>
+
   <div class="container">
     <header>
       <h1>Edit Profile</h1>
     </header>
 
-    <form action="/edit/<%= profile._id %>" method="POST" enctype="multipart/form-data">
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" value="<%= profile.name %>" required>
+    <div class="profile-form-container">
+      <h2>Edit Profile</h2>
+      <form action="/edit/<%= profile._id %>" method="POST" enctype="multipart/form-data">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="<%= profile.name %>" required>
 
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" value="<%= profile.email %>" required>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" value="<%= profile.email %>" required>
 
-      <label for="interests">Interests:</label>
-      <input type="text" id="interests" name="interests" value="<%= Array.isArray(profile.interests) ? profile.interests.join(', ') : profile.interests %>">
+        <label for="interests">Interests (comma-separated):</label>
+        <input type="text" id="interests" name="interests" value="<%= profile.interests.join(', ') %>">
 
-      <!-- Display current profile picture -->
-      <label>Current Profile Picture:</label>
-      <div class="profile-picture-container">
-        <img src="/images/<%= profile.profilePicture %>" 
-             alt="Profile Picture" 
-             width="150" 
-             onerror="this.onerror=null; this.src='/images/default.png';">
-      </div>
+        <div class="profile-image-container">
+          <label for="profilePicture">Profile Picture:</label>
+          <% if (profile.profilePicture && profile.profilePicture !== "default.png") { %>
+            <img src="/images/<%= profile.profilePicture %>" alt="Current Picture">
+          <% } else { %>
+            <img src="/images/default.png" alt="Default Picture">
+          <% } %>
+        </div>
+        <input type="file" id="profilePicture" name="profilePicture" accept="image/*">
 
-      <!-- Upload new profile picture -->
-      <label for="profilePicture">Upload New Profile Picture:</label>
-      <input type="file" id="profilePicture" name="profilePicture" accept="image/*">
-
-      <button type="submit">Update Profile</button>
-    </form>
-
-    <button onclick="confirmDelete('<%= profile._id %>')" class="delete-btn">Delete Profile</button>
-
-    <a href="/">Back to Home</a>
+        <div class="create-profile-container">
+          <button type="submit" class="create-profile-btn">Update Profile</button>
+          <button type="button" class="add-users-btn cancel-btn" onclick="window.location='/'">Cancel</button>
+        </div>
+      </form>
+    </div>
   </div>
+
+  <script>
+    // Dark mode logic
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('change', () => {
+      if (themeToggle.checked) {
+        document.body.classList.add('dark-mode');
+      } else {
+        document.body.classList.remove('dark-mode');
+      }
+      localStorage.setItem('theme', themeToggle.checked ? 'dark' : 'light');
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeToggle.checked = true;
+      }
+    });
+  </script>
 </body>
 </html>

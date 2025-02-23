@@ -3,6 +3,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const profileController = require('./controllers/profileController');
+const userSeederRoutes = require('./controllers/userSeederController'); // New Route
 
 const app = express();
 
@@ -16,7 +17,8 @@ app.set('views', path.join(__dirname, 'views'));
 // Middleware
 app.use(cors()); 
 app.use(express.urlencoded({ extended: true })); 
-app.use(express.json()); 
+app.use(express.json());
+app.use('/api', userSeederRoutes); // Register the new API route
 
 // Serve static files (images, CSS, etc.)
 app.use(express.static(path.join(__dirname, 'public')));

@@ -1,7 +1,7 @@
 /* General Body Styles */
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f0f2f5; /* Facebook light background */
+  background-color: #f0f2f5; /* Light background */
   margin: 0;
   padding: 0;
 }
@@ -19,19 +19,19 @@ header h1 {
   margin: 0;
 }
 
-/* Profile List Styles */
+/* Profile List Styles (Main Page) */
 .profile-table {
   margin: 20px auto;
   width: 90%;
   max-width: 800px;
   background-color: white;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   overflow: hidden;
 }
 
 .profile-table-header {
-  background-color: #e9eff1; /* Light grey background for header */
+  background-color: #e9eff1; /* Light grey background */
   padding: 12px;
   font-weight: bold;
   display: flex;
@@ -39,13 +39,11 @@ header h1 {
   text-align: left;
 }
 
-/* Uniform padding for all headers */
 .profile-table-header .profile-table-cell {
   text-align: left;
   padding: 10px 15px;
 }
 
-/* Profile Table Rows */
 .profile-table-row {
   display: flex;
   align-items: center;
@@ -57,7 +55,6 @@ header h1 {
   border-bottom: none;
 }
 
-/* General Cell Formatting */
 .profile-table-cell {
   flex: 1;
   padding: 10px 15px;
@@ -69,28 +66,20 @@ header h1 {
 /* Checkbox Column */
 .select-column {
   flex: 0.2;
-  text-align: left;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Name Header and Column Alignment */
-.profile-name-header {
-  text-align: left;
-  padding-left: 60px;
-}
-
-/* Profile Name Column */
+/* Profile Name & Thumbnail */
 .profile-name {
   display: flex;
   align-items: center;
   gap: 10px;
   flex: 2;
-  padding-left: 0px;
+  padding-left: 0;
 }
 
-/* Profile Picture Thumbnail */
 .profile-thumbnail {
   width: 50px;
   height: 50px;
@@ -98,7 +87,6 @@ header h1 {
   object-fit: cover;
 }
 
-/* Email & Interests Column Alignment */
 .profile-email {
   flex: 2;
   text-align: left;
@@ -113,24 +101,16 @@ header h1 {
   color: #555;
 }
 
-/* Ensuring consistent column widths */
-.profile-table-cell:nth-child(1) { flex: 0.3; }  
-.profile-table-cell:nth-child(2) { flex: 2; }    
-.profile-table-cell:nth-child(3) { flex: 2; }    
-.profile-table-cell:nth-child(4) { flex: 1.5; }  
-.profile-table-cell:nth-child(5) { flex: 1; }    
-
-/* Align Bulk Delete Button */
+/* Bulk Delete */
 .bulk-delete-container {
   display: flex;
   justify-content: flex-start;
   width: 90%;
   max-width: 800px;
-  margin: 10px auto 0 auto;
+  margin: 10px auto 0;
   padding-top: 10px;
 }
 
-/* Delete Button */
 .bulk-delete-btn {
   background-color: #e74c3c;
   color: white;
@@ -143,22 +123,24 @@ header h1 {
   display: none;
   align-items: center;
   gap: 5px;
-  transition: background-color 0.2s ease-in-out;
   margin-left: 8px;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .bulk-delete-btn:hover {
   background-color: #c0392b;
 }
 
-/* Checkbox */
-.profile-table-cell input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
+/* Button Container Styles */
+.button-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  margin: 20px 0;
 }
 
-/* Create New Profile Button */
+/* Create Profile Button (Primary) */
 .create-profile-btn {
   display: block;
   width: fit-content;
@@ -169,10 +151,41 @@ header h1 {
   text-decoration: none;
   font-weight: bold;
   margin: 20px auto;
+  border: none;
+  text-align: center;
+  cursor: pointer;
+  min-width: 220px;
+  transition: background-color 0.2s ease-in-out;
+  font-size: 16px;
 }
 
 .create-profile-btn:hover {
   background-color: #165eab;
+}
+
+/* Add Users/Cancel Button (Secondary) */
+.add-users-btn,
+.cancel-btn {
+  display: block;
+  width: fit-content;
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  margin: 20px auto;
+  text-align: center;
+  min-width: 220px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.add-users-btn:hover,
+.cancel-btn:hover {
+  background-color: #218838;
 }
 
 /* Delete & Edit Icons */
@@ -200,14 +213,14 @@ header h1 {
   text-decoration: underline;
 }
 
-/* 🟢 Fixing Create & Edit Profile Pages */
+/* Profile Form Container */
 .profile-form-container {
   max-width: 500px;
   margin: 30px auto;
   padding: 25px;
   background: white;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 .profile-form-container h2 {
@@ -221,7 +234,6 @@ header h1 {
   margin-bottom: 5px;
 }
 
-/* Profile Picture Preview */
 .profile-image-container {
   display: flex;
   align-items: center;
@@ -236,21 +248,22 @@ header h1 {
   object-fit: cover;
 }
 
-/* General Form Styling */
+/* Form Styles */
 form {
   background-color: white;
   padding: 25px;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   max-width: 500px;
-  margin: 30px auto;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-/* Input Styles */
-input[type="text"], input[type="email"], textarea {
+input[type="text"],
+input[type="email"],
+textarea {
   width: 100%;
   padding: 12px;
   border: 1px solid #ddd;
@@ -259,26 +272,10 @@ input[type="text"], input[type="email"], textarea {
   box-sizing: border-box;
 }
 
-/* File Input */
 input[type="file"] {
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 10px;
-}
-
-/* Submit Button */
-button[type="submit"] {
-  background-color: #1877f2;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 6px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-button[type="submit"]:hover {
-  background-color: #165eab;
 }
 
 /* Footer */
@@ -288,4 +285,175 @@ footer {
   text-align: center;
   padding: 10px 0;
   font-size: 14px;
+}
+
+/* Theme Toggle Switch */
+.theme-switch-wrapper {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 1000;
+}
+
+.theme-switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+.theme-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+.theme-switch input:checked + .slider {
+  background-color: #1877f2;
+}
+
+.theme-switch input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.sun-icon,
+.moon-icon {
+  font-size: 18px;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+  background-color: #18191a;
+  color: #f1f1f1;
+}
+
+body.dark-mode header {
+  background-color: #242526;
+  color: #f1f1f1;
+}
+
+body.dark-mode .profile-table {
+  background-color: #242526;
+  box-shadow: none;
+  color: #f1f1f1;
+}
+
+body.dark-mode .profile-table-header {
+  background-color: #3a3b3c;
+  color: #fff;
+}
+
+body.dark-mode .profile-table-row {
+  border-bottom: 1px solid #444;
+}
+
+body.dark-mode .profile-table-cell {
+  color: #f1f1f1;
+}
+
+body.dark-mode .profile-interests {
+  color: #dcdcdc;
+}
+
+body.dark-mode .create-profile-btn {
+  background-color: #3a3b3c;
+  color: #fff;
+}
+
+body.dark-mode .create-profile-btn:hover {
+  background-color: #4a4b4c;
+}
+
+body.dark-mode .add-users-btn,
+body.dark-mode .cancel-btn {
+  background-color: #ff9800;
+  color: #fff;
+}
+
+body.dark-mode .add-users-btn:hover,
+body.dark-mode .cancel-btn:hover {
+  background-color: #f57c00;
+}
+
+body.dark-mode .bulk-delete-btn {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+body.dark-mode footer {
+  background-color: #242526;
+  color: #f1f1f1;
+}
+
+body.dark-mode .theme-switch input:checked + .slider {
+  background-color: #3a3b3c;
+}
+
+body.dark-mode .sun-icon {
+  color: #f1c40f;
+}
+
+body.dark-mode .moon-icon {
+  color: #e4e6eb;
+}
+
+body.dark-mode .delete-btn {
+  color: #ff4444;
+}
+
+body.dark-mode .edit-link {
+  color: #82b1ff;
+}
+
+body.dark-mode .profile-form-container {
+  background-color: #242526;
+  color: #f1f1f1;
+  box-shadow: none;
+}
+
+body.dark-mode .profile-form-container form {
+  background-color: #333333;
+  box-shadow: none;
+  border: none;
+}
+
+body.dark-mode .profile-form-container h2,
+body.dark-mode .profile-form-container label {
+  color: #f1f1f1;
+}
+
+body.dark-mode .profile-form-container input[type="text"],
+body.dark-mode .profile-form-container input[type="email"],
+body.dark-mode .profile-form-container textarea,
+body.dark-mode .profile-form-container input[type="file"] {
+  background-color: #242526;
+  color: #f1f1f1;
+  border: 1px solid #444;
 }
