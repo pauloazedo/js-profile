@@ -7,7 +7,7 @@ const userSeederRoutes = require('./controllers/userSeederController'); // New R
 
 const app = express();
 
-// Connect to MongoDB
+// ✅ Connect to MongoDB (Fix: Remove deprecated options)
 require('./config/db');
 
 // Set the view engine

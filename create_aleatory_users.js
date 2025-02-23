@@ -1,17 +1,7 @@
 require('dotenv').config(); // Load environment variables
-const mongoose = require('mongoose');
+const mongoose = require('./config/db'); // ✅ Use the existing DB connection
 const { faker } = require('@faker-js/faker');
 const Profile = require('./models/Profile'); // Adjust the path if needed
-
-// MongoDB Connection
-const mongoURI = process.env.MONGO_URI;
-
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('✅ Connected to MongoDB'))
-  .catch((err) => {
-    console.error('❌ MongoDB Connection Error:', err);
-    process.exit(1);
-  });
 
 // Function to Generate Fake Profiles
 const generateFakeProfiles = (count) => {
@@ -23,7 +13,7 @@ const generateFakeProfiles = (count) => {
   }));
 };
 
-// Seed Database Function (Now Exported)
+// Seed Database Function
 const seedDatabase = async () => {
   try {
     const fakeProfiles = generateFakeProfiles(50);
