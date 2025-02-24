@@ -161,23 +161,68 @@ js-app-profile/
 | POST   | `/bulk-delete`   | Delete selected profiles  |
 | POST   | `/api/seed-users` | Seed 50 random profiles |
 
-## 🐳 Docker Setup (Upcoming)
+## 🐳 Docker Setup
 
-Docker support is in progress. Once ready:
+The project now supports **Docker Compose**, making it easy to set up the application along with MongoDB and Mongo Express.
 
-- **Build the image**:
+### 🏗 Build and Start the Containers
 
-  ```bash
-  docker build -t user-profile-app .  
-  ```
+1. **Ensure Docker and Docker Compose are installed** on your system.
+2. **Run the following command** to build and start all services in detached mode:
 
-- **Run the container**:
+   ```bash
+   docker-compose up --build -d
+   ```
 
-  ```bash
-  docker run -p 3000:3000 --env-file .env user-profile-app  
-  ```
+3. **Verify that all containers are running**:
 
-Check `compose.yaml` for a multi-container setup (e.g., app + MongoDB).
+   ```bash
+   docker ps
+   ```
+
+   Example output:
+
+   ```
+   CONTAINER ID   IMAGE                COMMAND                  CREATED        STATUS        PORTS                      NAMES
+   269f8820eea8   js-app-profile-app   "docker-entrypoint.s…"   13 hours ago   Up 13 hours   0.0.0.0:3000->3000/tcp     js-app-profile-app-1
+   a410c7e1df8e   mongo                "docker-entrypoint.s…"   13 hours ago   Up 13 hours   0.0.0.0:27017->27017/tcp   js-app-profile-mongodb-1
+   abb5a2e5b460   mongo-express        "/sbin/tini -- /dock…"   13 hours ago   Up 13 hours   0.0.0.0:8081->8081/tcp     js-app-profile-mongo-express-1
+   ```
+
+4. **Access the application** in your browser:
+
+   - **User Profile Manager**: [http://localhost:3000](http://localhost:3000)
+   - **Mongo Express (MongoDB UI)**: [http://localhost:8081](http://localhost:8081)
+
+### 🛑 Stopping and Removing Containers
+
+To stop the running containers:
+
+```bash
+docker-compose down
+```
+
+To remove all stopped containers, networks, and volumes:
+
+```bash
+docker-compose down -v
+```
+
+### 🛠 Understanding the Containers
+
+- **`js-app-profile-app`**: The Node.js application running on port `3000`
+- **`js-app-profile-mongodb`**: The MongoDB database running on port `27017`
+- **`js-app-profile-mongo-express`**: A web-based MongoDB admin UI running on port `8081`
+
+### 📂 Files Related to Docker
+
+- **`Dockerfile`**: Defines the application’s Docker image.
+- **`docker-compose.yaml`**: Configures multi-container setup with MongoDB and Mongo Express.
+- **`.dockerignore`**: Lists files and directories to exclude from the Docker image.
+
+---
+
+Docker is now fully integrated, making it easier to deploy and manage the application with minimal setup. 🚀
 
 ## ☸ Kubernetes Deployment (Upcoming)
 
