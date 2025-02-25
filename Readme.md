@@ -19,7 +19,7 @@ A **learning project** to sharpen JavaScript skills, explore Node.js, and experi
 - [Usage](#-usage)
 - [Project Structure](#-project-structure)
 - [API Endpoints](#-api-endpoints)
-- [Docker Setup](#-docker-setup-upcoming)
+- [Docker Setup](#-docker-setup)
 - [Kubernetes Deployment](#-kubernetes-deployment-upcoming)
 - [Contributing](#-contributing)
 - [License](#-license)
